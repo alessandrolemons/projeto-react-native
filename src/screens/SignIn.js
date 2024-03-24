@@ -3,9 +3,9 @@ import React, { useContext, useState } from 'react';
 import { ScrollView, View, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme, Input, Icon, Text, Image } from '@rneui/themed';
-import MyButtom from '../../components/MyButtom';
-import Loading from '../../components/Loading';
-import { AuthUserContext } from '../../context/AuthUserProvider';
+import MyButtom from '../components/MyButtom';
+import Loading from '../components/Loading';
+import { AuthUserContext } from '../context/AuthUserProvider';
 import { CommonActions } from '@react-navigation/native';
 
 const SignIn = ({ navigation }) => {
@@ -20,7 +20,7 @@ const SignIn = ({ navigation }) => {
     container: {
       flex: 1,
       justifyContent: 'center',
-      padding: 20,
+      paddingHorizontal: 20,
       backgroundColor: theme.colors.background,
     },
     divSuperior: {
@@ -33,12 +33,11 @@ const SignIn = ({ navigation }) => {
       marginTop: 20,
     },
     textEsqueceuSenha: {
-      fontSize: 15,
+      fontSize: 14,
       color: theme.colors.primary,
       alignSelf: 'flex-end',
-      marginTop: 10,
       marginBottom: 10,
-      marginRight: 13,
+      marginRight: 10,
     },
     divOuHr: {
       width: '100%',
@@ -54,8 +53,7 @@ const SignIn = ({ navigation }) => {
       borderBottomWidth: 2,
     },
     textOu: {
-      marginLeft: 20,
-      marginRight: 20,
+      marginHorizontal: 20,
       fontSize: 18,
       color: theme.colors.accent,
     },
@@ -67,7 +65,7 @@ const SignIn = ({ navigation }) => {
       padding: 20,
       color: theme.colors.accent,
     },
-    textCadastreSe:{
+    textCadastreSe: {
       color: theme.colors.accent,
     },
     textNormal: {
@@ -94,10 +92,23 @@ const SignIn = ({ navigation }) => {
         }),
       );
     } else {
-      alert(msgError);
+      Alert.alert(msgError);
       setLoading(false);
     }
   }
+
+  const cadastrar = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'SignUp' }],
+      }),
+    );
+  };
+
+  const ForgotPass = () => {
+    navigation.navigate('ForgotPass');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -110,7 +121,7 @@ const SignIn = ({ navigation }) => {
               borderRadius: 200 / 2,
             }}
             style={{ width: 200, height: 200 }}
-            source={require('../../assets/images/logo.png')}
+            source={require('../assets/images/logo.png')}
             accessibilityLabel="logo do app"
           />
           <Input
@@ -155,7 +166,7 @@ const SignIn = ({ navigation }) => {
           />
           <Text
             style={styles.textEsqueceuSenha}
-            onPress={() => alert('chama esqueceu senha')}>
+            onPress={() => ForgotPass()}>
             Esqueceu sua senha?
           </Text>
           <MyButtom text="ENTRAR" onClick={entrar} />
@@ -170,7 +181,7 @@ const SignIn = ({ navigation }) => {
             <Text style={styles.textCadastreSe}>Não tem uma conta?</Text>
             <Text
               style={styles.textCadastrarSe}
-              onPress={() => alert('chama SignUp')}>
+              onPress={() => cadastrar()}>
               Cadastre-se
             </Text>
           </View>

@@ -43,6 +43,7 @@ export const AuthUserProvider = ({children}) => {
 
   //função utilitária
   function launchServerMessageErro(e) {
+    console.log(e);
     switch (e.code) {
       case 'auth/user-not-found':
         return 'Usuário não cadastrado.';
@@ -54,6 +55,8 @@ export const AuthUserProvider = ({children}) => {
         return 'Usuário desabilitado.';
       case 'auth/email-already-in-use':
         return 'Email em uso. Tente outro email.';
+      case 'auth/invalid-credential':
+        return 'As credenciais informadas são inválidas!.';
       default:
         return 'Erro desconhecido. Contate o administrador';
     }
@@ -64,3 +67,5 @@ export const AuthUserProvider = ({children}) => {
     </AuthUserContext.Provider>
   );
 };
+
+
