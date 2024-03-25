@@ -28,6 +28,7 @@ const SignIn = ({ navigation }) => {
     image: {
       width: 200,
       height: 200,
+      resizeMode: 'contain',
     },
     fields: {
       backgroundColor: theme.colors.primaryDark,
@@ -52,20 +53,18 @@ const SignIn = ({ navigation }) => {
       marginRight: 10,
     },
     divOuHr: {
-      width: '100%',
-      height: 25,
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+      paddingHorizontal: 20,
     },
     divHr: {
-      width: '30%',
-      height: 1,
+      width: '40%',
       borderBottomColor: theme.colors.grey4,
       borderBottomWidth: 2,
     },
     textOu: {
-      marginHorizontal: 20,
+      marginHorizontal: 15,
       fontSize: 18,
       color: theme.colors.accent,
     },
@@ -89,6 +88,11 @@ const SignIn = ({ navigation }) => {
       color: theme.colors.secondary,
       marginLeft: 10,
     },
+    textoLogin:{
+      fontSize: 16,
+      textAlign: 'center',
+      padding: 10,
+    }
   });
 
   async function entrar() {
@@ -139,13 +143,13 @@ const SignIn = ({ navigation }) => {
             containerStyle={{
               width: 200,
               height: 200,
-              borderRadius: 200 / 2,
             }}
             style={styles.image}
-            source={require('../assets/images/logo.png')}
+            source={require('../assets/images/bankLogo.png')}
             accessibilityLabel="logo do app"
           />
           <View style={styles.fields}>
+            <Text style={styles.textoLogin}>Faça login e vamos começar!</Text>
             <Input
               placeholder="Email"
               keyboardType="email-address"

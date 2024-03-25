@@ -64,7 +64,7 @@ const theme = createTheme({
         height: 120,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 120 / 2,
+        // borderRadius: 120 / 2,
         backgroundColor: COLORS.transparent,
       },
     },

@@ -15,7 +15,7 @@ const Navigator = () => {
   const {theme} = useTheme();
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor={theme.colors.primaryDark} />
+      <StatusBar backgroundColor={theme.colors.background} />
       <Stack.Navigator
         initialRouteName="Preload"
         screenOptions={{

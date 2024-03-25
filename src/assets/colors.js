@@ -20,7 +20,7 @@ export const COLORS = {
     primary: '#111111', //equivale a cor primary da paleta do rneui
     primaryDark: '#1F1F1F', //não há na paleta do rneui
     accent: '#d3ff52', //equivale a cor secondary na paleta do rneui
-    accentSecundary: '##7e52ff', //não há na paleta do rneui
+    accentSecundary: '#7e52ff', //não há na paleta do rneui
     grey: '#827E7F', //grey4 no rneui
     whiteGray: '#D7D5D6', //diferente do error do rneui
     white: '#fff', //diferente do white do rneui
