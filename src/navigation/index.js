@@ -1,8 +1,8 @@
 import React from 'react';
 import Navigator from './Navigator';
-import {ThemeProvider, createTheme} from '@rneui/themed';
-import {COLORS} from '../assets/colors';
-import {AuthUserProvider} from '../context/AuthUserProvider';
+import { ThemeProvider, createTheme } from '@rneui/themed';
+import { COLORS } from '../assets/colors';
+import { AuthUserProvider } from '../context/AuthUserProvider';
 
 const theme = createTheme({
   lightColors: {
@@ -42,7 +42,7 @@ const theme = createTheme({
         backgroundColor: COLORS.accent,
         borderRadius: 3,
       },
-      titleStyle: {color: COLORS.white},
+      titleStyle: { color: COLORS.white },
     },
     ButtonGroup: {
       containerStyle: {
@@ -55,8 +55,8 @@ const theme = createTheme({
       buttonStyle: {
         height: 32,
       },
-      textStyle: {color: COLORS.primary},
-      innerBorderStyle: {color: COLORS.primary},
+      textStyle: { color: COLORS.primary },
+      innerBorderStyle: { color: COLORS.primary },
     },
     Image: {
       containerStyle: {
@@ -70,13 +70,14 @@ const theme = createTheme({
     },
     Input: {
       inputContainerStyle: {
-        borderBottomColor: COLORS.grey,
+        borderBottomColor: COLORS.red,
       },
     },
   },
 });
 
 const Providers = () => {
+
   return (
     <ThemeProvider theme={theme}>
       <AuthUserProvider>

@@ -20,6 +20,7 @@ const Navigator = () => {
         initialRouteName="Preload"
         screenOptions={{
           headerShown: true,
+          headerTitleStyle: { color: '#fff' },
           headerStyle: {
             backgroundColor: theme.colors.primary,
           },

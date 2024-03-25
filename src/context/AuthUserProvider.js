@@ -1,10 +1,11 @@
-import React, {createContext} from 'react';
+import React, { createContext } from 'react';
 import auth from '@react-native-firebase/auth';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import RNRestart from 'react-native-restart';
 
 export const AuthUserContext = createContext({});
 
-export const AuthUserProvider = ({children}) => {
+export const AuthUserProvider = ({ children }) => {
 
   async function storeUserSession(email, pass) {
     try {
@@ -39,6 +40,19 @@ export const AuthUserProvider = ({children}) => {
     }
   }
 
+  async function Logout() {
+    try {
+      await EncryptedStorage.removeItem('user_session');
+      await auth().signOut()
+        .then(() => { RNRestart.restart()})
+        .catch(() => { console.log('ERRO AO DESLOGAR'); });
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   //função utilitária
   function launchServerMessageErro(e) {
     console.log(e);
@@ -60,7 +74,7 @@ export const AuthUserProvider = ({children}) => {
     }
   }
   return (
-    <AuthUserContext.Provider value={{signIn, retrieveUserSession}}>
+    <AuthUserContext.Provider value={{ signIn, retrieveUserSession, Logout }}>
       {children}
     </AuthUserContext.Provider>
   );

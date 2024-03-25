@@ -1,23 +1,23 @@
 import { Icon } from '@rneui/base';
-import React from 'react';
-import { View } from 'react-native';
-import styled from 'styled-components';
-
+import React, { useContext } from 'react';
+import { AuthUserContext } from '../context/AuthUserProvider';
 
 const SignOutBtn = () => {
 
+    const { Logout } = useContext(AuthUserContext);
+
     const signOut = () => {
-        alert("DESLOGAR");
-    }
+        Logout();
+    };
 
     return (
-            <Icon
-                name="exit-to-app"
-                type="material-community"
-                size={28}
-                color={"#fff"}
-                onPress={signOut}
-            />
+        <Icon
+            name="exit-to-app"
+            type="material-community"
+            size={28}
+            color={'#fff'}
+            onPress={signOut}
+        />
     );
 };
 

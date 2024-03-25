@@ -9,7 +9,6 @@ const Home = ({ navigation }) => {
     navigation.setOptions({
       title: 'Home',
       headerStyle: { backgroundColor: COLORS.primary },
-      headerTitleStyle: { color: '#fff' },
       headerRight: () => <SignOutBtn />,
     })
 
