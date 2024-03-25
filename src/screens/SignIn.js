@@ -145,7 +145,7 @@ const SignIn = ({ navigation }) => {
               height: 200,
             }}
             style={styles.image}
-            source={require('../assets/images/bankLogo.png')}
+            source={require('../assets/images/bank_logo_dark.png')}
             accessibilityLabel="logo do app"
           />
           <View style={styles.fields}>

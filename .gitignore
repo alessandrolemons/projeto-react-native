@@ -67,3 +67,6 @@ yarn-error.log
 
 #Google Services
 android/app/google-services.json
+
+#logo psd
+src/assets/images/bank_logo.psd
