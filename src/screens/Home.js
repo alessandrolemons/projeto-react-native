@@ -1,55 +1,40 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import MyButtom from '../components/MyButtom';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import SignOutBtn from '../components/SignOutBtn';
+import {COLORS} from '../assets/colors';
 
-export default function Home({navigation}) {
-  //State (uma variável que pode mudar o valor durante a execução do app)
-  const [contador, setContador] = useState(0);
-  //const[getContador, setContador] = useState(0);
-
-  console.log(navigation);
-
-  function incrementar() {
-    setContador(contador + 1);
-  }
-
-  function decrementar() {
-    setContador(contador - 1);
-  }
-
-  //Ciclo de vide dos componentes React
-
-  //Chamado ao criar o componente
+const Home = ({ navigation }) => {
   useEffect(() => {
-    console.log('Na contrução do componente.');
+    navigation.setOptions({
+      title: 'Home',
+      headerStyle: { backgroundColor: COLORS.primary },
+      headerTitleStyle: { color: '#fff' },
+      headerRight: () => <SignOutBtn />,
+    })
 
-    //Chamado quando o componente é destruído
-    return console.log('Ao destruir o componente.');
   }, []);
 
-  //Chamado ao atualizar o componente
-  useEffect(() => {
-    console.log('Na atualização do componenente.');
-  }, [contador]);
+
 
   return (
-    <View>
-      <Text style={styles.texto}>Contador: {contador}</Text>
-      <MyButtom onClick={incrementar} text="Incrementar" />
-      <MyButtom onClick={decrementar} text="Decrementar" />
-      <MyButtom
-        onClick={() => navigation.navigate('SignIn')}
-        text="Ir para SignIn"
-      />
+    <View style={styles.container}>
+      <Text style={styles.texto}>Home</Text>
     </View>
   );
-}
+};
+
+export default Home;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   texto: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#f00',
     textAlign: 'center',
   },
 });

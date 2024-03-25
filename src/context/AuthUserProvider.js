@@ -5,9 +5,7 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 export const AuthUserContext = createContext({});
 
 export const AuthUserProvider = ({children}) => {
-  /*
-    Cache criptografado do usuário
-  */
+
   async function storeUserSession(email, pass) {
     try {
       await EncryptedStorage.setItem(
@@ -56,7 +54,7 @@ export const AuthUserProvider = ({children}) => {
       case 'auth/email-already-in-use':
         return 'Email em uso. Tente outro email.';
       case 'auth/invalid-credential':
-        return 'As credenciais informadas são inválidas!.';
+        return 'As credenciais informadas são inválidas!';
       default:
         return 'Erro desconhecido. Contate o administrador';
     }

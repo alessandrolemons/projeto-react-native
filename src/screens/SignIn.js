@@ -7,6 +7,8 @@ import MyButtom from '../components/MyButtom';
 import Loading from '../components/Loading';
 import { AuthUserContext } from '../context/AuthUserProvider';
 import { CommonActions } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+
 
 const SignIn = ({ navigation }) => {
   const { theme } = useTheme();
@@ -84,6 +86,12 @@ const SignIn = ({ navigation }) => {
     let msgError = await signIn(email, password);
     if (msgError === 'ok') {
       setLoading(false);
+
+      if (!auth().currentUser.emailVerified) {
+        Alert.alert('[ERRO] Email não verificado', 'Verifique seu email para continuar!');
+        return;
+      }
+
       navigation.navigate('Home');
       navigation.dispatch(
         CommonActions.reset({
@@ -91,6 +99,7 @@ const SignIn = ({ navigation }) => {
           routes: [{ name: 'Home' }],
         }),
       );
+
     } else {
       Alert.alert(msgError);
       setLoading(false);
@@ -98,12 +107,7 @@ const SignIn = ({ navigation }) => {
   }
 
   const cadastrar = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'SignUp' }],
-      }),
-    );
+    navigation.navigate('SignUp');
   };
 
   const ForgotPass = () => {
@@ -147,7 +151,7 @@ const SignIn = ({ navigation }) => {
               showPass ? (
                 <Icon
                   type="material-community"
-                  name="form-textbox-password"
+                  name="lock"
                   size={22}
                   color={theme.colors.grey2}
                   onPress={() => setShowPass(false)}
@@ -155,7 +159,7 @@ const SignIn = ({ navigation }) => {
               ) : (
                 <Icon
                   type="material-community"
-                  name="form-textbox-password"
+                  name="lock"
                   size={22}
                   color={theme.colors.error}
                   onPress={() => setShowPass(true)}

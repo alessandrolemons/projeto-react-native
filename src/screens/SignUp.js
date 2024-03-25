@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Alert, View, StyleSheet } from 'react-native';
+import { Alert, View, StyleSheet, ScrollView } from 'react-native';
 import { useTheme, Input, Icon, Text } from '@rneui/themed';
 import auth from '@react-native-firebase/auth';
 import { CommonActions } from '@react-navigation/native';
 import { AuthUserContext } from '../context/AuthUserProvider';
 import MyButtom from '../components/MyButtom';
 import Loading from '../components/Loading';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUp = ({ navigation }) => {
   const [nome, setNome] = useState('');
@@ -20,17 +21,25 @@ const SignUp = ({ navigation }) => {
     if (nome === '' || email === '' || pass === '' || confPass === '') {
       Alert.alert('Preencha todos os campos');
     }
+    else if(pass !== confPass) {
+      Alert.alert('[ERRO]', 'As senhas não coincidem, tente novamente!');
+    }
     else {
       auth().createUserWithEmailAndPassword(email, pass)
         .then(() => {
-          Alert.alert('Sucesso!', 'Usuário cadastrado com sucesso!');
-          navigation.navigate('Home');
-          navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [{ name: 'Home' }],
-            }),
-          );
+          let user = auth().currentUser;
+          user.sendEmailVerification()
+            .then(() => {
+              Alert.alert('Quase lá!', 'Confirme seu cadastro no email informado!');
+              // navigation.navigate('SignIn');
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{ name: 'SignIn' }],
+                }),
+              );
+            })
+            .catch((e) => console.log(e))
         })
         .catch((e) => {
           Alert.alert('Erro', e.code);
@@ -54,67 +63,74 @@ const SignUp = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Input style={styles.input}
-        placeholder="Nome completo"
-        keyboardType="default"
-        returnKeyType="next"
-        leftIcon={
-          <Icon
-            name="account"
-            type="material-community"
-            size={22}
-            color={theme.colors.grey2}
-          />
-        }
-        onChangeText={(t) => setNome(t)}
-      />
-      <Input style={styles.input}
-        placeholder="email@example.com"
-        keyboardType="email-address"
-        returnKeyType="next"
-        leftIcon={
-          <Icon
-            name="email-outline"
-            type="material-community"
-            size={22}
-            color={theme.colors.grey2}
-          />
-        }
-        onChangeText={(t) => setEmail(t)}
-      />
-      <Input style={styles.input}
-        secureTextEntry={true}
-        placeholder="Senha (mínimo 6 digitos)"
-        keyboardType="default"
-        returnKeyType="next"
-        leftIcon={
-          <Icon
-            name="lock"
-            type="material-community"
-            size={22}
-            color={theme.colors.grey2}
-          />
-        }
-        onChangeText={(t) => setPass(t)}
-      />
-      <Input style={styles.input}
-        secureTextEntry={true}
-        placeholder="Confirme sua senha"
-        keyboardType="default"
-        leftIcon={
-          <Icon
-            name="lock"
-            type="material-community"
-            size={22}
-            color={theme.colors.grey2}
-          />
-        }
-        onChangeText={(t) => setConfPass(t)}
-      />
-      <MyButtom text="Cadastrar" onClick={cadastrar} />
-      {loading && <Loading />}
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.mainText}>Criar uma conta</Text>
+          <View style={styles.fields}>
+            <Input style={styles.input}
+              placeholder="Nome completo"
+              keyboardType="default"
+              returnKeyType="next"
+              leftIcon={
+                <Icon
+                  name="account"
+                  type="material-community"
+                  size={22}
+                  color={theme.colors.grey2}
+                />
+              }
+              onChangeText={(t) => setNome(t)}
+            />
+            <Input style={styles.input}
+              placeholder="email@example.com"
+              keyboardType="email-address"
+              returnKeyType="next"
+              leftIcon={
+                <Icon
+                  name="email-outline"
+                  type="material-community"
+                  size={22}
+                  color={theme.colors.grey2}
+                />
+              }
+              onChangeText={(t) => setEmail(t)}
+            />
+            <Input style={styles.input}
+              secureTextEntry={true}
+              placeholder="Senha (mínimo 6 digitos)"
+              keyboardType="default"
+              returnKeyType="next"
+              leftIcon={
+                <Icon
+                  name="lock"
+                  type="material-community"
+                  size={22}
+                  color={theme.colors.grey2}
+                />
+              }
+              onChangeText={(t) => setPass(t)}
+            />
+            <Input style={styles.input}
+              secureTextEntry={true}
+              placeholder="Confirme sua senha"
+              keyboardType="default"
+              leftIcon={
+                <Icon
+                  name="lock"
+                  type="material-community"
+                  size={22}
+                  color={theme.colors.grey2}
+                />
+              }
+              onChangeText={(t) => setConfPass(t)}
+            />
+            <MyButtom text="Cadastro" onClick={cadastrar} />
+            {loading && <Loading />}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -122,11 +138,18 @@ export default SignUp;
 
 
 const styles = StyleSheet.create({
+  mainText: {
+    marginVertical: 30,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
+  },
+  fields: {
+    width: '100%',
   },
   input: {
     width: '95%',
