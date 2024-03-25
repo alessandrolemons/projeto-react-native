@@ -21,7 +21,7 @@ const SignUp = ({ navigation }) => {
     if (nome === '' || email === '' || pass === '' || confPass === '') {
       Alert.alert('Preencha todos os campos');
     }
-    else if(pass !== confPass) {
+    else if (pass !== confPass) {
       Alert.alert('[ERRO]', 'As senhas não coincidem, tente novamente!');
     }
     else {
@@ -62,72 +62,93 @@ const SignUp = ({ navigation }) => {
 
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 10,
+      backgroundColor: theme.colors.background,
+    },
+    mainText: {
+      marginVertical: 30,
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: theme.colors.primary,
+      textAlign: 'center',
+    },
+    input: {
+      fontSize: 16,
+    },
+    scroll: {
+      width: '100%',
+    }
+  });
+
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.mainText}>Criar uma conta</Text>
-          <View style={styles.fields}>
-            <Input style={styles.input}
-              placeholder="Nome completo"
-              keyboardType="default"
-              returnKeyType="next"
-              leftIcon={
-                <Icon
-                  name="account"
-                  type="material-community"
-                  size={22}
-                  color={theme.colors.grey2}
-                />
-              }
-              onChangeText={(t) => setNome(t)}
-            />
-            <Input style={styles.input}
-              placeholder="email@example.com"
-              keyboardType="email-address"
-              returnKeyType="next"
-              leftIcon={
-                <Icon
-                  name="email-outline"
-                  type="material-community"
-                  size={22}
-                  color={theme.colors.grey2}
-                />
-              }
-              onChangeText={(t) => setEmail(t)}
-            />
-            <Input style={styles.input}
-              secureTextEntry={true}
-              placeholder="Senha (mínimo 6 digitos)"
-              keyboardType="default"
-              returnKeyType="next"
-              leftIcon={
-                <Icon
-                  name="lock"
-                  type="material-community"
-                  size={22}
-                  color={theme.colors.grey2}
-                />
-              }
-              onChangeText={(t) => setPass(t)}
-            />
-            <Input style={styles.input}
-              secureTextEntry={true}
-              placeholder="Confirme sua senha"
-              keyboardType="default"
-              leftIcon={
-                <Icon
-                  name="lock"
-                  type="material-community"
-                  size={22}
-                  color={theme.colors.grey2}
-                />
-              }
-              onChangeText={(t) => setConfPass(t)}
-            />
-            <MyButtom text="Cadastro" onClick={cadastrar} />
-            {loading && <Loading />}
-          </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scroll}>
+        <Text style={styles.mainText}>Criar uma conta</Text>
+        <View>
+          <Input style={styles.input}
+            placeholder="Nome completo"
+            keyboardType="default"
+            returnKeyType="next"
+            leftIcon={
+              <Icon
+                name="account"
+                type="material-community"
+                size={22}
+                color={theme.colors.grey2}
+              />
+            }
+            onChangeText={(t) => setNome(t)}
+          />
+          <Input style={styles.input}
+            placeholder="email@example.com"
+            keyboardType="email-address"
+            returnKeyType="next"
+            leftIcon={
+              <Icon
+                name="email-outline"
+                type="material-community"
+                size={22}
+                color={theme.colors.grey2}
+              />
+            }
+            onChangeText={(t) => setEmail(t)}
+          />
+          <Input style={styles.input}
+            secureTextEntry={true}
+            placeholder="Senha (mínimo 6 digitos)"
+            keyboardType="default"
+            returnKeyType="next"
+            leftIcon={
+              <Icon
+                name="lock"
+                type="material-community"
+                size={22}
+                color={theme.colors.grey2}
+              />
+            }
+            onChangeText={(t) => setPass(t)}
+          />
+          <Input style={styles.input}
+            secureTextEntry={true}
+            placeholder="Confirme sua senha"
+            keyboardType="default"
+            leftIcon={
+              <Icon
+                name="lock"
+                type="material-community"
+                size={22}
+                color={theme.colors.grey2}
+              />
+            }
+            onChangeText={(t) => setConfPass(t)}
+          />
+          <MyButtom text="Cadastro" onClick={cadastrar} />
+          {loading && <Loading />}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -135,25 +156,3 @@ const SignUp = ({ navigation }) => {
 };
 
 export default SignUp;
-
-
-const styles = StyleSheet.create({
-  mainText: {
-    marginVertical: 30,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 10,
-  },
-  fields: {
-    width: '100%',
-  },
-  input: {
-    width: '95%',
-    fontSize: 16,
-  },
-
-});

@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import SignOutBtn from '../components/SignOutBtn';
-import {COLORS} from '../assets/colors';
+import { COLORS } from '../assets/colors';
+import { useTheme } from '@rneui/themed';
+
 
 const Home = ({ navigation }) => {
   useEffect(() => {
@@ -14,7 +16,22 @@ const Home = ({ navigation }) => {
 
   }, []);
 
+  const { theme } = useTheme();
 
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.colors.background,
+    },
+    texto: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -25,15 +42,4 @@ const Home = ({ navigation }) => {
 
 export default Home;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  texto: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
+

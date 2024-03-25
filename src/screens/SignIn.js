@@ -25,6 +25,16 @@ const SignIn = ({ navigation }) => {
       paddingHorizontal: 20,
       backgroundColor: theme.colors.background,
     },
+    image: {
+      width: 200,
+      height: 200,
+    },
+    fields: {
+      backgroundColor: theme.colors.primaryDark,
+      width: '100%',
+      borderRadius: 5,
+      padding: 10,
+    },
     divSuperior: {
       flex: 5,
       alignItems: 'center',
@@ -36,7 +46,7 @@ const SignIn = ({ navigation }) => {
     },
     textEsqueceuSenha: {
       fontSize: 14,
-      color: theme.colors.primary,
+      color: theme.colors.accent,
       alignSelf: 'flex-end',
       marginBottom: 10,
       marginRight: 10,
@@ -76,13 +86,20 @@ const SignIn = ({ navigation }) => {
     },
     textCadastrarSe: {
       fontSize: 15,
-      color: theme.colors.primary,
-      marginLeft: 5,
+      color: theme.colors.secondary,
+      marginLeft: 10,
     },
   });
 
   async function entrar() {
+
+    if (email === '' || password === '') {
+      Alert.alert('Erro', 'Preencha todos os campos e tente novamente!');
+      return;
+    }
+
     setLoading(true);
+
     let msgError = await signIn(email, password);
     if (msgError === 'ok') {
       setLoading(false);
@@ -124,70 +141,74 @@ const SignIn = ({ navigation }) => {
               height: 200,
               borderRadius: 200 / 2,
             }}
-            style={{ width: 200, height: 200 }}
+            style={styles.image}
             source={require('../assets/images/logo.png')}
             accessibilityLabel="logo do app"
           />
-          <Input
-            placeholder="Email"
-            keyboardType="email-address"
-            returnKeyType="next"
-            leftIcon={
-              <Icon
-                name="email-outline"
-                type="material-community"
-                size={22}
-                color={theme.colors.grey2}
-              />
-            }
-            onChangeText={t => setEmail(t)}
-          />
-          <Input
-            secureTextEntry={showPass}
-            placeholder="Senha"
-            keyboardType="default"
-            returnKeyType="go"
-            leftIcon={
-              showPass ? (
+          <View style={styles.fields}>
+            <Input
+              placeholder="Email"
+              keyboardType="email-address"
+              returnKeyType="next"
+              leftIcon={
                 <Icon
+                  name="email-outline"
                   type="material-community"
-                  name="lock"
                   size={22}
                   color={theme.colors.grey2}
-                  onPress={() => setShowPass(false)}
                 />
-              ) : (
-                <Icon
-                  type="material-community"
-                  name="lock"
-                  size={22}
-                  color={theme.colors.error}
-                  onPress={() => setShowPass(true)}
-                />
-              )
-            }
-            onChangeText={t => setPassword(t)}
-          />
-          <Text
-            style={styles.textEsqueceuSenha}
-            onPress={() => ForgotPass()}>
-            Esqueceu sua senha?
-          </Text>
-          <MyButtom text="ENTRAR" onClick={entrar} />
-        </View>
-        <View style={styles.divInferior}>
-          <View style={styles.divOuHr}>
-            <View style={styles.divHr} />
-            <Text style={styles.textOu}>OU</Text>
-            <View style={styles.divHr} />
-          </View>
-          <View style={styles.divCadastrarSe}>
-            <Text style={styles.textCadastreSe}>Não tem uma conta?</Text>
+              }
+              onChangeText={t => setEmail(t)}
+            />
+            <Input
+              style={styles.input}
+              secureTextEntry={showPass}
+              placeholder="Senha"
+              keyboardType="default"
+              returnKeyType="go"
+              leftIcon={
+                showPass ? (
+                  <Icon
+                    type="material-community"
+                    name="lock"
+                    size={22}
+                    color={theme.colors.grey2}
+                    onPress={() => setShowPass(false)}
+                  />
+                ) : (
+                  <Icon
+                    type="material-community"
+                    name="lock"
+                    size={22}
+                    color={theme.colors.error}
+                    onPress={() => setShowPass(true)}
+                  />
+                )
+              }
+              onChangeText={t => setPassword(t)}
+            />
+
             <Text
-              style={styles.textCadastrarSe}
-              onPress={() => cadastrar()}>
-              Cadastre-se
+              style={styles.textEsqueceuSenha}
+              onPress={() => ForgotPass()}>
+              Esqueceu sua senha?
             </Text>
+            <MyButtom text="Entrar" onClick={entrar} />
+          </View>
+          <View style={styles.divInferior}>
+            <View style={styles.divOuHr}>
+              <View style={styles.divHr} />
+              <Text style={styles.textOu}>OU</Text>
+              <View style={styles.divHr} />
+            </View>
+            <View style={styles.divCadastrarSe}>
+              <Text style={styles.textCadastreSe}>Não tem uma conta?</Text>
+              <Text
+                style={styles.textCadastrarSe}
+                onPress={() => cadastrar()}>
+                Cadastre-se
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -21,7 +21,6 @@ const ForgotPass = ({ navigation }) => {
                 .catch((error) => {
                     console.log('ForgotPassWord, recover: ' + error.code);
                     switch (error.code) {
-                        //TODO: verificar validação desses erros
                         case 'auth/user-not-found':
                             Alert.alert('Erro', 'Email não cadastrado.');
                             break;
@@ -36,12 +35,35 @@ const ForgotPass = ({ navigation }) => {
         }
     };
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: theme.colors.background,
+            paddingBottom: 80,
+        },
+        mainTitle: {
+            fontSize: 22,
+            fontWeight: 'bold',
+            marginBottom: 10,
+            color: theme.colors.secondary,
+        },
+        mainText: {
+            fontSize: 14,
+            marginBottom: 20,
+        },
+        icon: {
+            marginBottom: 20,
+        },
+    });
+
     return (
         <View style={styles.container}>
             <Icon
                 name="lock-question"
                 type="material-community"
-                size={50}
+                size={80}
                 color={theme.colors.grey2}
                 style={styles.icon}
             />
@@ -65,25 +87,5 @@ const ForgotPass = ({ navigation }) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    mainTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    mainText: {
-        fontSize: 14,
-        marginBottom: 20,
-    },
-    icon: {
-        marginBottom: 20,
-    },
-});
 
 export default ForgotPass;

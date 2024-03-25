@@ -17,12 +17,12 @@ const theme = createTheme({
   },
   darkColors: {
     primary: COLORS.white,
-    primaryDark: COLORS.primaryDark, //esta cor extende a paleta do rneui
+    primaryDark: COLORS.black, //esta cor extende a paleta do rneui
     secondary: COLORS.accent,
     accentSecundary: COLORS.accentSecundary, //esta cor extende a paleta do rneui
-    background: COLORS.primary,
+    background: COLORS.black,
     error: COLORS.error,
-    loading: COLORS.accent,
+    loading: COLORS.primaryDark,
     transparent: COLORS.transparent, //esta cor extende a paleta do rneui
   },
   mode: 'dark',
@@ -33,9 +33,9 @@ const theme = createTheme({
         height: 50,
         justifyContent: 'center',
         alignSelf: 'center',
+        margin: 10,
         backgroundColor: COLORS.accent,
-        borderRadius: 10,
-        margin: 5,
+        borderRadius: 5,
       },
       buttonStyle: {
         height: 48,
