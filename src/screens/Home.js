@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import SignOutBtn from '../components/SignOutBtn';
 import { COLORS } from '../assets/colors';
 import { useTheme } from '@rneui/themed';
+import { Icon } from '@rneui/base';
 
 
 const Home = ({ navigation }) => {
@@ -18,13 +19,14 @@ const Home = ({ navigation }) => {
 
   const { theme } = useTheme();
 
-
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
+      gap: 10,
       alignItems: 'center',
       backgroundColor: theme.colors.background,
+      paddingBottom: 80,
     },
     texto: {
       fontSize: 24,
@@ -35,7 +37,14 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.texto}>Home</Text>
+      <Icon
+        name="wrench"
+        type="material-community"
+        size={60}
+        color={theme.colors.secondary}
+      />
+      <Text style={styles.texto}>*Home*</Text>
+      <Text>Em construção!</Text>
     </View>
   );
 };

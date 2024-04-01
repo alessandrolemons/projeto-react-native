@@ -68,11 +68,6 @@ const theme = createTheme({
         backgroundColor: COLORS.transparent,
       },
     },
-    Input: {
-      inputContainerStyle: {
-        borderBottomColor: COLORS.red,
-      },
-    },
   },
 });
 

@@ -16,6 +16,9 @@ const SignUp = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const { signUp } = useContext(AuthUserContext);
   const { theme } = useTheme();
+  const [showPass, setShowPass] = useState(true);
+  const [showConfPass, setShowConfPass] = useState(true);
+
 
   const cadastrar = () => {
     if (nome === '' || email === '' || pass === '' || confPass === '') {
@@ -39,22 +42,22 @@ const SignUp = ({ navigation }) => {
                 }),
               );
             })
-            .catch((e) => console.log(e))
+            .catch((e) => console.log(e));
         })
         .catch((e) => {
-          Alert.alert('Erro', e.code);
+          // Alert.alert('Erro', e.code);
           switch (e.code) {
             case 'auth/email-already-in-use':
               Alert.alert('Erro', 'Email já cadastrado.');
               break;
             case 'auth/invalid-email':
-              Alert.alert('Erro', 'Email inválido.');
+              Alert.alert('Erro', 'Informe um email válido.');
               break;
             case 'auth/operation-not-allowed':
               Alert.alert('Erro', 'Problemas ao efetuar cadastro.');
               break;
             case 'auth/weak-password':
-              Alert.alert('Erro', 'A senha informada é fraca.');
+              Alert.alert('Erro', 'A senha deve conter no mínimo 6 dígitos.');
               break;
           }
         });
@@ -82,7 +85,7 @@ const SignUp = ({ navigation }) => {
     },
     scroll: {
       width: '100%',
-    }
+    },
   });
 
   return (
@@ -103,8 +106,10 @@ const SignUp = ({ navigation }) => {
               />
             }
             onChangeText={(t) => setNome(t)}
+            onEndEditing={() => { this.emailInput.focus(); }}
           />
           <Input style={styles.input}
+            ref={(ref) => { this.emailInput = ref; }}
             placeholder="email@example.com"
             keyboardType="email-address"
             returnKeyType="next"
@@ -117,9 +122,11 @@ const SignUp = ({ navigation }) => {
               />
             }
             onChangeText={(t) => setEmail(t)}
+            onEndEditing={() => { this.senhaInput.focus(); }}
           />
           <Input style={styles.input}
-            secureTextEntry={true}
+            ref={(ref) => { this.senhaInput = ref; }}
+            secureTextEntry={showPass}
             placeholder="Senha (mínimo 6 digitos)"
             keyboardType="default"
             returnKeyType="next"
@@ -131,10 +138,31 @@ const SignUp = ({ navigation }) => {
                 color={theme.colors.grey2}
               />
             }
+            rightIcon={
+              showPass ? (
+                <Icon
+                  type="material-community"
+                  name="eye-off-outline"
+                  size={20}
+                  color={theme.colors.grey2}
+                  onPress={() => setShowPass(false)}
+                />
+              ) : (
+                <Icon
+                  type="material-community"
+                  name="eye-outline"
+                  size={20}
+                  color={theme.colors.secondary}
+                  onPress={() => setShowPass(true)}
+                />
+              )
+            }
             onChangeText={(t) => setPass(t)}
+            onEndEditing={() => { this.confSenhaInput.focus(); }}
           />
           <Input style={styles.input}
-            secureTextEntry={true}
+            ref={(ref) => { this.confSenhaInput = ref; }}
+            secureTextEntry={showConfPass}
             placeholder="Confirme sua senha"
             keyboardType="default"
             leftIcon={
@@ -144,6 +172,25 @@ const SignUp = ({ navigation }) => {
                 size={22}
                 color={theme.colors.grey2}
               />
+            }
+            rightIcon={
+              showConfPass ? (
+                <Icon
+                  type="material-community"
+                  name="eye-off-outline"
+                  size={20}
+                  color={theme.colors.grey2}
+                  onPress={() => setShowConfPass(false)}
+                />
+              ) : (
+                <Icon
+                  type="material-community"
+                  name="eye-outline"
+                  size={20}
+                  color={theme.colors.secondary}
+                  onPress={() => setShowConfPass(true)}
+                />
+              )
             }
             onChangeText={(t) => setConfPass(t)}
           />

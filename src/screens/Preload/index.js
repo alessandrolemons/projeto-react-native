@@ -50,7 +50,7 @@ const Preload = ({navigation}) => {
   return (
     <Container>
       <Image
-        source={require('../../assets/images/logo_white.png')}
+        source={require('../../assets/images/bank_logo_light.png')}
         accessibilityLabel="logo do app"
       />
     </Container>

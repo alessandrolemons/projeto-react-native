@@ -33,7 +33,7 @@ const theme = createTheme({
         height: 50,
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: COLORS.accent,
+        backgroundColor:  COLORS.accent,
         borderRadius: 10,
         margin: 5,
       },
@@ -50,7 +50,6 @@ const theme = createTheme({
         marginTop: 20,
         marginBottom: 20,
         borderColor: COLORS.primary,
-        backgroundColor: COLORS.white,
       },
       buttonStyle: {
         height: 32,
@@ -66,11 +65,6 @@ const theme = createTheme({
         alignItems: 'center',
         // borderRadius: 120 / 2,
         backgroundColor: COLORS.transparent,
-      },
-    },
-    Input: {
-      inputContainerStyle: {
-        borderBottomColor: COLORS.red,
       },
     },
   },

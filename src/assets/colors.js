@@ -26,6 +26,7 @@ export const COLORS = {
     white: '#fff', //diferente do white do rneui
     black: '#080808', //white do thema Dark do rneui
     error: '#ff527c', //diferente do error do rneui
+    btn: '#d3ff52',
     transparent: 'transparent', //não há na paleta do rneui
 };
 

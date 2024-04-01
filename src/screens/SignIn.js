@@ -9,7 +9,6 @@ import { AuthUserContext } from '../context/AuthUserProvider';
 import { CommonActions } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
-
 const SignIn = ({ navigation }) => {
   const { theme } = useTheme();
   const [email, setEmail] = useState('');
@@ -88,11 +87,11 @@ const SignIn = ({ navigation }) => {
       color: theme.colors.secondary,
       marginLeft: 10,
     },
-    textoLogin:{
+    textoLogin: {
       fontSize: 16,
       textAlign: 'center',
       padding: 10,
-    }
+    },
   });
 
   async function entrar() {
@@ -163,40 +162,51 @@ const SignIn = ({ navigation }) => {
                 />
               }
               onChangeText={t => setEmail(t)}
+              onEndEditing={() => { this.senhaInput.focus(); }}
             />
             <Input
+              ref={(ref) => { this.senhaInput = ref; }}
               style={styles.input}
               secureTextEntry={showPass}
               placeholder="Senha"
               keyboardType="default"
               returnKeyType="go"
               leftIcon={
+                <Icon
+                  name="lock"
+                  type="material-community"
+                  size={22}
+                  color={theme.colors.grey2}
+                />
+              }
+              rightIcon={
                 showPass ? (
                   <Icon
                     type="material-community"
-                    name="lock"
-                    size={22}
+                    name="eye-off-outline"
+                    size={20}
                     color={theme.colors.grey2}
                     onPress={() => setShowPass(false)}
                   />
                 ) : (
                   <Icon
                     type="material-community"
-                    name="lock"
-                    size={22}
-                    color={theme.colors.error}
+                    name="eye-outline"
+                    size={20}
+                    color={theme.colors.secondary}
                     onPress={() => setShowPass(true)}
                   />
                 )
               }
               onChangeText={t => setPassword(t)}
             />
-
-            <Text
-              style={styles.textEsqueceuSenha}
-              onPress={() => ForgotPass()}>
-              Esqueceu sua senha?
-            </Text>
+            <View>
+              <Text
+                style={styles.textEsqueceuSenha}
+                onPress={() => ForgotPass()}>
+                Esqueceu sua senha?
+              </Text>
+            </View>
             <MyButtom text="Entrar" onClick={entrar} />
           </View>
           <View style={styles.divInferior}>
