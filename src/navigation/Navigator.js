@@ -8,7 +8,6 @@ import ForgotPass from '../screens/ForgotPass';
 import SignUp from '../screens/SignUp';
 import { StatusBar } from 'react-native';
 import { useTheme } from '@rneui/themed';
-import { fonts } from '@rneui/base';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +31,7 @@ const Navigator = () => {
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="ForgotPass" component={ForgotPass} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

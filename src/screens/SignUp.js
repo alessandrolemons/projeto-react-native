@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Alert, View, StyleSheet, ScrollView } from 'react-native';
 import { useTheme, Input, Icon, Text } from '@rneui/themed';
-import auth from '@react-native-firebase/auth';
 import { CommonActions } from '@react-navigation/native';
-import { AuthUserContext } from '../context/AuthUserProvider';
 import MyButtom from '../components/MyButtom';
 import Loading from '../components/Loading';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import auth from '@react-native-firebase/auth';
+import { AuthUserContext } from '../context/AuthUserProvider';
+import firestore from '@react-native-firebase/firestore';
 
 const SignUp = ({ navigation }) => {
   const [nome, setNome] = useState('');
@@ -20,7 +21,9 @@ const SignUp = ({ navigation }) => {
   const [showConfPass, setShowConfPass] = useState(true);
 
 
-  const cadastrar = () => {
+
+  const cadastrar = async () => {
+
     if (nome === '' || email === '' || pass === '' || confPass === '') {
       Alert.alert('Preencha todos os campos');
     }
@@ -28,41 +31,69 @@ const SignUp = ({ navigation }) => {
       Alert.alert('[ERRO]', 'As senhas não coincidem, tente novamente!');
     }
     else {
-      auth().createUserWithEmailAndPassword(email, pass)
-        .then(() => {
-          let user = auth().currentUser;
-          user.sendEmailVerification()
-            .then(() => {
-              Alert.alert('Quase lá!', 'Confirme seu cadastro no email informado!');
-              // navigation.navigate('SignIn');
-              navigation.dispatch(
-                CommonActions.reset({
-                  index: 0,
-                  routes: [{ name: 'SignIn' }],
-                }),
-              );
-            })
-            .catch((e) => console.log(e));
-        })
-        .catch((e) => {
-          // Alert.alert('Erro', e.code);
-          switch (e.code) {
-            case 'auth/email-already-in-use':
-              Alert.alert('Erro', 'Email já cadastrado.');
-              break;
-            case 'auth/invalid-email':
-              Alert.alert('Erro', 'Informe um email válido.');
-              break;
-            case 'auth/operation-not-allowed':
-              Alert.alert('Erro', 'Problemas ao efetuar cadastro.');
-              break;
-            case 'auth/weak-password':
-              Alert.alert('Erro', 'A senha deve conter no mínimo 6 dígitos.');
-              break;
-          }
-        });
-    }
+      // auth().createUserWithEmailAndPassword(email, pass)
+      //   .then(() => {
+      //     console.log('Adicionou no authentication');
+      //     let user = auth().currentUser;
+      //     let userData = {};
+      //     userData.nome = nome;
+      //     userData.email = email;
+      //     console.log('Dados a serem adicionados no Firestore: UID:', user.uid, userData);
+      try {
+        console.log(firestore);
+        // await firestore().collection('estudantes').doc(estudante.uid).set(
+        //   {
+        //     nome: estudante.nome,
+        //     curso: estudante.curso,
+        //     urlFoto: estudante.urlFoto,
+        //   },
+        //   {merge: true},
+        // );
+        await firestore()
+          .collection('users')
+          .doc('jsaijdasijdiasjas')
+          .set({
+            nome: "teste"
+          },
+            { merge: true },
+          );
+        console.log('Usuario adicionado no FIRESTORE!');
+        console.log(' outro');
+        console.log(firestore);
+      } catch (e) {
+        console.log('Erro ao adicionar no Firestore');
+        console.log(e);
+      }
 
+      //     user.sendEmailVerification()
+      //       .then(() => {
+      //         Alert.alert('Quase lá!', 'Confirme seu cadastro em: ' + email);
+      //         // navigation.navigate('SignIn');
+      //         navigation.dispatch(
+      //           CommonActions.reset({
+      //             index: 0,
+      //             routes: [{ name: 'SignIn' }],
+      //           }),
+      //         );
+      //       })
+      //       .catch((e) => console.log('ERRO ao enviar confirmaçao para o email' + e));
+      //       .catch ((e) => {
+      // switch (e.code) {
+      //   case 'auth/email-already-in-use':
+      //     Alert.alert('Erro', 'Email já cadastrado.');
+      //     break;
+      //   case 'auth/invalid-email':
+      //     Alert.alert('Erro', 'Informe um email válido.');
+      //     break;
+      //   case 'auth/operation-not-allowed':
+      //     Alert.alert('Erro', 'Problemas ao efetuar cadastro.');
+      //     break;
+      //   case 'auth/weak-password':
+      //     Alert.alert('Erro', 'A senha deve conter no mínimo 6 dígitos.');
+      //     break;
+      // }
+      // });
+    }
   };
 
   const styles = StyleSheet.create({

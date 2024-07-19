@@ -34,6 +34,9 @@ const SignIn = ({ navigation }) => {
       width: '100%',
       borderRadius: 5,
       padding: 10,
+      borderColor: theme.colors.secondary,
+      borderStyle: 'solid',
+      borderWidth: 1,
     },
     divSuperior: {
       flex: 5,
@@ -46,7 +49,7 @@ const SignIn = ({ navigation }) => {
     },
     textEsqueceuSenha: {
       fontSize: 14,
-      color: theme.colors.accent,
+      color: theme.colors.secondary,
       alignSelf: 'flex-end',
       marginBottom: 10,
       marginRight: 10,
@@ -65,7 +68,6 @@ const SignIn = ({ navigation }) => {
     textOu: {
       marginHorizontal: 15,
       fontSize: 18,
-      color: theme.colors.accent,
     },
     divCadastrarSe: {
       flex: 1,
@@ -76,7 +78,7 @@ const SignIn = ({ navigation }) => {
       color: theme.colors.accent,
     },
     textCadastreSe: {
-      color: theme.colors.accent,
+      color: theme.colors.grey2,
     },
     textNormal: {
       fontSize: 18,
@@ -108,7 +110,7 @@ const SignIn = ({ navigation }) => {
       setLoading(false);
 
       if (!auth().currentUser.emailVerified) {
-        Alert.alert('[ERRO] Email não verificado', 'Verifique seu email para continuar!');
+        Alert.alert('Email não verificado!', 'Verifique seu email para continuar.');
         return;
       }
 
